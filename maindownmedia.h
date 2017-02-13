@@ -15,7 +15,7 @@ public:
     explicit MainDownTube(QWidget *parent = 0);
     ~MainDownTube();
 
-
+//Private methods and variables
 private:
     Ui::MainDownTube *ui;
 };
