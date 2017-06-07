@@ -1,69 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainDownTube</class>
- <widget class="QMainWindow" name="MainDownTube">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>800</width>
-    <height>600</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>800</width>
-    <height>600</height>
-   </size>
+ <author/>
+ <comment/>
+ <exportmacro/>
+ <class>MainDownMedia</class>
+ <widget class="QWidget" name="MainDownMedia">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
   </property>
   <property name="windowTitle">
-   <string>DownTube</string>
+   <string>Form</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>800</width>
-      <height>600</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="tabAudio">
-     <attribute name="title">
-      <string>Audio</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tabVideo">
-     <attribute name="title">
-      <string>Video</string>
-     </attribute>
-    </widget>
-   </widget>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <pixmapfunction/>
  <connections/>
 </ui>

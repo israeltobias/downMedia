@@ -1,23 +1,22 @@
-#ifndef MAINDOWNTUBE_H
-#define MAINDOWNTUBE_H
+#ifndef MAINDOWNMEDIA_H
+#define MAINDOWNMEDIA_H
 
-#include <QMainWindow>
+#include <QWidget>
 
 namespace Ui {
-class MainDownTube;
+class MainDownMedia;
 }
 
-class MainDownTube : public QMainWindow
+class MainDownMedia : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit MainDownTube(QWidget *parent = 0);
-    ~MainDownTube();
+    explicit MainDownMedia(QWidget *parent = 0);
+    ~MainDownMedia();
 
-//Private methods and variables
 private:
-    Ui::MainDownTube *ui;
+    Ui::MainDownMedia *ui;
 };
 
-#endif // MAINDOWNTUBE_H
+#endif // MAINDOWNMEDIA_H

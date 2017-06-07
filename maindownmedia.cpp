@@ -1,15 +1,14 @@
 #include "maindownmedia.h"
-#include "ui_maindowntube.h"
+#include "ui_maindownmedia.h"
 
-MainDownTube::MainDownTube(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainDownTube)
+MainDownMedia::MainDownMedia(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::MainDownMedia)
 {
     ui->setupUi(this);
 }
 
-MainDownTube::~MainDownTube()
+MainDownMedia::~MainDownMedia()
 {
     delete ui;
 }
-
