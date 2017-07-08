@@ -15,6 +15,10 @@ public:
     explicit MainDownMedia(QWidget *parent = 0);
     ~MainDownMedia();
 
+private slots:
+    void on_btnProcess_clicked();
+
+
 private:
     Ui::MainDownMedia *ui;
 };

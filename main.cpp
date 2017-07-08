@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainDownTube w;
+    MainDownMedia w;
     w.setGeometry(
         QStyle::alignedRect(
             Qt::LeftToRight,
