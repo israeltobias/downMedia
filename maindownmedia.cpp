@@ -5,7 +5,9 @@
 #include <QDebug>
 #include <QDir>
 #include <QProgressDialog>
+#include <QStringList>
 using namespace std;
+
 MainDownMedia::MainDownMedia(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainDownMedia)
@@ -15,41 +17,66 @@ MainDownMedia::MainDownMedia(QWidget *parent) :
 
 MainDownMedia::~MainDownMedia()
 {
+    this->process->close();
     delete ui;
 }
+/*********************************************
+ * SLOTS
+ * *******************************/
 
+void MainDownMedia::readyRead(){
+    if (!this->process)
+        return;
+
+      QString str = process->readAllStandardOutput();
+      if(str.contains("%",Qt::CaseInsensitive)){
+        QStringList list = str.split(" ");
+        foreach (QString item, list) {
+            if(item.contains("%",Qt::CaseInsensitive)){
+                QStringList percentage = item.split("%");
+                float intPercentage = ((QString) percentage.at(0)).toFloat();
+                this->progress->setValue(intPercentage);
+            }
+        }
+
+      }
+}
 
 void MainDownMedia::on_btnProcess_clicked()
 {
-    QProcess *process = new QProcess(this);
+    this->process = new QProcess(this);
     try {
-        process->setReadChannel(QProcess::StandardOutput);
-        process->setProcessChannelMode( QProcess::MergedChannels );
+        this->process->setReadChannel(QProcess::StandardOutput);
+        this->process->setProcessChannelMode( QProcess::MergedChannels );
 
 
-        QProgressDialog *progress = new QProgressDialog;
-        progress->setAttribute(Qt::WA_DeleteOnClose);
-        progress->setWindowModality(Qt::WindowModal);
-        progress->setCancelButtonText("Cancelar");
-        progress->setRange(0,0);
-        connect(process, SIGNAL(finished(int)), progress, SLOT(close()));
-
+        this->progress = new QProgressDialog;
+        this->progress->setAttribute(Qt::WA_DeleteOnClose);
+        //this->progress->setWindowModality(Qt::WindowModal);
+        this->progress->setModal(true);
+        this->progress->setWindowTitle("Descargando");
+        this->progress->setMaximumSize(300,100);
+        this->progress->setMinimumSize(300,100);
+        this->progress->setCancelButtonText("Cancelar");
+        this->progress->setRange(0,100);
+        connect(this->process, SIGNAL(finished(int)), this->progress, SLOT(close()));
+        connect (this->process, SIGNAL(readyReadStandardOutput()), this, SLOT(readyRead()));
         QDir *dir = new QDir();
         dir->cd("youtube-dl");
         qDebug()<<"DIR: "<<dir->absolutePath();
-        process->setWorkingDirectory(dir->absolutePath());
-        process->start("python -m youtube_dl -x --audio-format mp3 --audio-quality 128K --rm-cache-dir -o \"/home/israel/Música/%(title)s.%(ext)s\" de63cweypyM", QProcess::Unbuffered | QProcess::ReadWrite);
+        this->process->setWorkingDirectory(dir->absolutePath());
+        this->process->start("python -m youtube_dl -x --audio-format mp3 --audio-quality 128K --rm-cache-dir -o \"/home/israel/Música/%(title)s.%(ext)s\" de63cweypyM", QProcess::Unbuffered | QProcess::ReadWrite);
 
-        progress->exec();
+        this->progress->exec();
 
 
         dir->cdUp();
         qDebug()<<"DIR: "<<dir->absolutePath();
-        process->setWorkingDirectory(dir->absolutePath());
-        process->close();
+        this->process->setWorkingDirectory(dir->absolutePath());
+        this->process->close();
   //  process->start("sh", QStringList()<<"-c"<<"python -m youtube_dl -x --audio-format mp3 --audio-quality 128K -o '/home/israel/Música/%(title)s.%(ext)s' de63cweypyM");
     } catch (...){
-        process->close();
+        this->process->close();
         qDebug()<<"Error!";
     }
 }

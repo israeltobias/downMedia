@@ -2,6 +2,8 @@
 #define MAINDOWNMEDIA_H
 
 #include <QWidget>
+#include <QProcess>
+#include <QProgressDialog>
 
 namespace Ui {
 class MainDownMedia;
@@ -17,10 +19,13 @@ public:
 
 private slots:
     void on_btnProcess_clicked();
+    void readyRead();
 
 
 private:
     Ui::MainDownMedia *ui;
+    QProcess *process;
+    QProgressDialog *progress;
 };
 
 #endif // MAINDOWNMEDIA_H
