@@ -35,10 +35,22 @@ void MainDownMedia::readyRead(){
             if(item.contains("%",Qt::CaseInsensitive)){
                 QStringList percentage = item.split("%");
                 float intPercentage = ((QString) percentage.at(0)).toFloat();
-                this->progress->setValue(intPercentage);
+                if(intPercentage<100) {
+                    this->progress->setValue(intPercentage);
+                 }
             }
         }
-
+      }
+      if(str.contains("Destination:",Qt::CaseInsensitive)){
+          QStringList strFile = str.split("/");
+          QString nameFile = strFile.last();
+          this->progress->setLabelText(nameFile);
+      }
+      if(str.contains("[ffmpeg]")){
+          this->progress->setWindowTitle("Convirtiendo");
+      }
+      if(str.contains("Deleting")){
+          this->progress->setValue(100);
       }
 }
 
@@ -54,12 +66,13 @@ void MainDownMedia::on_btnProcess_clicked()
         this->progress->setAttribute(Qt::WA_DeleteOnClose);
         //this->progress->setWindowModality(Qt::WindowModal);
         this->progress->setModal(true);
-        this->progress->setWindowTitle("Descargando");
-        this->progress->setMaximumSize(300,100);
-        this->progress->setMinimumSize(300,100);
+        this->progress->setMaximumSize(400,130);
+        this->progress->setMinimumSize(400,130);
         this->progress->setCancelButtonText("Cancelar");
+        this->progress->setWindowTitle("Descargando");
+        this->progress->setLabelText("Conectando con YouTube...");
         this->progress->setRange(0,100);
-        connect(this->process, SIGNAL(finished(int)), this->progress, SLOT(close()));
+        //connect(this->process, SIGNAL(finished(int)), this->progress, SLOT(close()));
         connect (this->process, SIGNAL(readyReadStandardOutput()), this, SLOT(readyRead()));
         QDir *dir = new QDir();
         dir->cd("youtube-dl");
