@@ -79,7 +79,7 @@ void MainDownMedia::on_btnProcess_clicked()
         qDebug()<<"DIR: "<<dir->absolutePath();
         this->process->setWorkingDirectory(dir->absolutePath());
         this->process->start("python -m youtube_dl -x --audio-format mp3 --audio-quality 128K --rm-cache-dir -o \"/home/israel/Música/%(title)s.%(ext)s\" de63cweypyM", QProcess::Unbuffered | QProcess::ReadWrite);
-
+        //execute
         this->progress->exec();
 
 
